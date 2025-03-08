@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSB Plotter - Venda de Plotters de Impressão e Peças de Reposição</title>
+  <meta name="description" content="BSB Plotter oferece plotters de impressão para lonas, outdoors, adesivos e impressão UV, além de peças de reposição como cabeças de impressão. Qualidade e inovação para sua impressão de grande formato.">
+  <meta name="keywords" content="plotter de impressão, venda de plotter, impressão de lonas, outdoor, adesivos, impressão UV, peças para plotter, cabeças de impressão, Brasília">
+  <meta name="author" content="BSB Plotter">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rubik&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div id="logo">
+      <img src="assets/logo/logo.png" alt="Logo BSB Plotter">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="javascript:void(0)" onclick="showTab('home')" aria-label="Ir para Home" class="active">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="showTab('produtos')" aria-label="Ir para Produtos">Produtos</a></li>
+        <li><a href="javascript:void(0)" onclick="showTab('contato')" aria-label="Ir para Contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" style="display: block;">
+      <h1>BSBPLOTTER - MAQUINAS E MANUTENÇÕES</h1>
+      <p>Somos uma empresa especializada na manutenção e venda de peças para impressoras a base de solvente e recorte e computadores.</p>
+      <a href="javascript:void(0)" onclick="showTab('produtos')" class="cta-button">Explore Nossos Produtos</a>
+    </section>
+
+    <section id="produtos" style="display: none;">
+      <div class="product-container">
+        <h1>Nossos Produtos</h1>
+        <div class="products-grid">
+          <!-- Produto 1: Impressoras -->
+          <div class="product-item" data-product="1">
+            <div class="carousel" data-slides="3">
+              <div class="carousel-images">
+                <img src="assets/products/imp-img1.jpg" alt="Impressora 1">
+                <img src="assets/products/imp-img2.jpg" alt="Impressora 2">
+                <img src="assets/products/imp-img3.jpg" alt="Impressora 3">
+              </div>
+              <div class="carousel-nav">
+                <button class="prev" aria-label="Slide anterior">❮</button>
+                <button class="next" aria-label="Próximo slide">❯</button>
+              </div>
+              <div class="carousel-dots">
+                <button class="dot"></button>
+                <button class="dot"></button>
+                <button class="dot"></button>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-description">Impressoras a base de solvente e recorte para projetos de alta qualidade.</div>
+              <button class="product-button" onclick="openModal(1)">Ver Detalhes</button>
+            </div>
+          </div>
+
+          <!-- Produto 2: Placas -->
+          <div class="product-item" data-product="2">
+            <div class="carousel" data-slides="2">
+              <div class="carousel-images">
+                <img src="assets/products/placa-img1.jpg" alt="Placa 1">
+                <img src="assets/products/placa-img2.jpg" alt="Placa 2">
+              </div>
+              <div class="carousel-nav">
+                <button class="prev" aria-label="Slide anterior">❮</button>
+                <button class="next" aria-label="Próximo slide">❯</button>
+              </div>
+              <div class="carousel-dots">
+                <button class="dot"></button>
+                <button class="dot"></button>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-description">Placas eletrônicas para manutenção de equipamentos de impressão.</div>
+              <button class="product-button" onclick="openModal(2)">Ver Detalhes</button>
+            </div>
+          </div>
+
+          <!-- Produto 3: Peças -->
+          <div class="product-item" data-product="3">
+            <div class="carousel" data-slides="4">
+              <div class="carousel-images">
+                <img src="assets/products/pec-img1.avif" alt="Peça 1">
+                <img src="assets/products/pec-img2.avif" alt="Peça 2">
+                <img src="assets/products/pec-img3.avif" alt="Peça 3">
+                <img src="assets/products/pec-img4.avif" alt="Peça 4">
+              </div>
+              <div class="carousel-nav">
+                <button class="prev" aria-label="Slide anterior">❮</button>
+                <button class="next" aria-label="Próximo slide">❯</button>
+              </div>
+              <div class="carousel-dots">
+                <button class="dot"></button>
+                <button class="dot"></button>
+                <button class="dot"></button>
+                <button class="dot"></button>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-description">Peças de reposição para impressoras e plotters.</div>
+              <button class="product-button" onclick="openModal(3)">Ver Detalhes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal" id="product-modal">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closeModal()">✕</button>
+          <div class="modal-body">
+            <div class="modal-carousel">
+              <div class="carousel-images"></div>
+              <div class="carousel-nav">
+                <button class="prev" aria-label="Slide anterior">❮</button>
+                <button class="next" aria-label="Próximo slide">❯</button>
+              </div>
+              <div class="carousel-dots"></div>
+            </div>
+            <div class="modal-details">
+              <h1 id="modal-title"></h1>
+              <p id="modal-description"></p>
+              <a href="#" class="whatsapp-btn" id="modal-whatsapp"><i class="fab fa-whatsapp"></i> Entrar em Contato via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" style="display: none;">
+      <h1>Entre em Contato</h1>
+      <form action="https://wa.me/5591999999999" method="get">
+        <input class="input-field" type="text" name="nome" placeholder="Seu nome" required>
+        <input class="input-field" type="email" name="email" placeholder="Seu e-mail" required>
+        <textarea class="input-field" name="mensagem" placeholder="Sua mensagem" required></textarea>
+        <button type="submit" class="submit-btn">Enviar Mensagem</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>© <span id="year"></span> BSB Plotter | Todos os direitos reservados</p>
+      <div class="footer-item phone"><i class="fas fa-phone"></i> +55 (61) 99690-9562</div>
+      <div class="footer-item email"><i class="fas fa-envelope"></i> <a href="mailto:bsbplotter@gmail.com">bsbplotter@gmail.com</a></div>
+      <div class="footer-item facebook"><i class="fab fa-facebook-f"></i> <a href="https://www.facebook.com/BsbPlotter" target="_blank">Facebook</a></div>
+      <div class="footer-item whatsapp"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5561996909562" target="_blank">WhatsApp</a></div>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
