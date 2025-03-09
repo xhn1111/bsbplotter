@@ -170,7 +170,7 @@ const products = {
   },
   13: {
     title: "Fiber Laser",
-    description: "Máquina de corte e gravação a laser de fibra.",
+    description: "Máquina de gravação a laser.",
     images: [
       "assets/products/las-img1.webp"
     ],
