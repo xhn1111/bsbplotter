@@ -1,405 +1,145 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" x-data="appData">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSB Plotter - Venda de Plotters de Impressão e Peças de Reposição</title>
-  <meta name="description" content="BSB Plotter oferece plotters de impressão para lonas, outdoors, adesivos e impressão UV, além de peças de reposição como cabeças de impressão. Qualidade e inovação para sua impressão de grande formato.">
-  <meta name="keywords" content="plotter de impressão, venda de plotter, impressão de lonas, outdoor, adesivos, impressão UV, peças para plotter, cabeças de impressão, Brasília">
-  <meta name="author" content="BSB Plotter">
-  <meta name="robots" content="index, follow">
+  <title>BSB Plotter</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rubik:wght@500&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-  <header>
-    <div id="logo">
-      <img src="assets/logo/logo.png" alt="Logo BSB Plotter">
+<body class="font-poppins bg-gray-50 text-gray-800 leading-relaxed">
+  <header x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 50" :class="{ 'scrolled': scrolled }" class="fixed w-full top-0 z-50 bg-gradient-to-br from-white to-gray-100 shadow-md transition-all duration-300 flex flex-col items-center justify-center py-6 px-8" :class="{ 'py-4': scrolled }">
+    <div id="logo" class="mb-6">
+      <img src="assets/logo/logo.png" alt="Logo BSB Plotter" class="max-w-[250px] transition-transform duration-300 hover:scale-110">
     </div>
     <nav>
-      <ul>
-        <li><a href="javascript:void(0)" onclick="showTab('home')" aria-label="Ir para Home" class="active">Home</a></li>
-        <li><a href="javascript:void(0)" onclick="showTab('produtos')" aria-label="Ir para Produtos">Produtos</a></li>
-        <li><a href="javascript:void(0)" onclick="showTab('contato')" aria-label="Ir para Contato">Contato</a></li>
+      <ul class="flex justify-center gap-16 list-none">
+        <li><a href="#" @click="activeTab = 'home'" :class="{ 'bg-black text-white shadow-md': activeTab === 'home' }" class="text-black no-underline font-semibold py-2 px-6 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:shadow-md text-lg">Home</a></li>
+        <li><a href="#" @click="activeTab = 'produtos'" :class="{ 'bg-black text-white shadow-md': activeTab === 'produtos' }" class="text-black no-underline font-semibold py-2 px-6 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:shadow-md text-lg">Produtos</a></li>
+        <li><a href="#" @click="activeTab = 'contato'" :class="{ 'bg-black text-white shadow-md': activeTab === 'contato' }" class="text-black no-underline font-semibold py-2 px-6 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:shadow-md text-lg">Contato</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <section id="home" style="display: block;">
-      <h1>BSBPLOTTER - MAQUINAS E MANUTENÇÕES</h1>
-      <p>Somos uma empresa especializada na manutenção e venda de peças para impressoras a base de solvente e recorte e computadores.</p>
-      <a href="javascript:void(0)" onclick="showTab('produtos')" class="cta-button">Explore Nossos Produtos</a>
+  <main class="pt-40 pb-12 px-6">
+    <section id="home" x-show="activeTab === 'home'" class="text-center p-16 bg-gradient-to-br from-white to-gray-100 rounded-3xl shadow-xl max-w-4xl mx-auto animate-fadeIn">
+      <h1 class="text-6xl font-bold mb-8">BSBPLOTTER</h1>
+      <p class="text-2xl text-gray-600 mb-10">Manutenção e venda de peças para impressoras a base de solvente e recorte.</p>
+      <a href="#" @click="activeTab = 'produtos'" class="inline-block bg-gradient-to-br from-black to-gray-800 text-white py-4 px-12 font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-xl">Ver Produtos</a>
     </section>
 
-    <section id="produtos" style="display: none;">
-      <div class="product-container">
-        <h1>Nossos Produtos</h1>
-        <div class="products-grid">
-          <!-- Produto 1: Impressoras -->
-          <div class="product-item" data-product="1">
-            <div class="carousel" data-slides="4">
-              <div class="carousel-images">
-                <img src="assets/products/imp-img1.webp" alt="Impressora 1">
-                <img src="assets/products/imp-img2.webp" alt="Impressora 2">
-                <img src="assets/products/imp-img3.webp" alt="Impressora 3">
-                <img src="assets/products/imp-img4.webp" alt="Impressora 4">
+    <section id="produtos" x-show="activeTab === 'produtos'" class="max-w-7xl mx-auto mt-20">
+      <div class="p-16 bg-white rounded-3xl shadow-xl">
+        <h1 class="text-5xl font-bold mb-12">Produtos</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <template x-for="(product, id) in products" :key="id">
+            <div class="product-item bg-gray-100 rounded-2xl p-4 transition-all duration-200 hover:-translate-y-2 hover:shadow-3xl hover:bg-gray-200 w-full aspect-square flex flex-col" x-data="{ currentSlide: 0 }">
+              <div class="carousel relative w-full h-[80%] overflow-hidden rounded-xl group">
+                <div class="carousel-images flex h-full transition-transform duration-500 ease-in-out" :style="'transform: translateX(-' + (currentSlide * 100) + '%);'">
+                  <template x-for="(img, index) in product.images" :key="index">
+                    <img :src="img" :alt="product.title" class="flex-shrink-0 w-full h-full object-cover">
+                  </template>
+                </div>
+                <div class="carousel-nav absolute inset-0 flex justify-between items-center px-2 opacity-50 group-hover:opacity-100 transition-opacity duration-200">
+                  <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide - 1 + product.images.length) % product.images.length">❮</button>
+                  <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide + 1) % product.images.length">❯</button>
+                </div>
+                <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  <template x-for="(img, index) in product.images" :key="index">
+                    <button class="dot bg-white/80 border-none rounded-full w-3 h-3 cursor-pointer transition-all duration-300" :class="{ 'bg-black scale-125': currentSlide === index }" @click="currentSlide = index"></button>
+                  </template>
+                </div>
               </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-                <button class="dot"></button>
-                <button class="dot"></button>
-                <button class="dot"></button>
+              <div class="product-info mt-2 text-center flex flex-col justify-between">
+                <div>
+                  <h2 x-text="product.title" class="font-rubik text-xl font-medium mb-1"></h2>
+                  <div x-text="product.description" class="text-gray-600 text-sm mb-2"></div>
+                </div>
+                <button class="product-button mx-auto bg-gray-800 text-white font-semibold rounded-full transition-all duration-300 hover:bg-gray-900 hover:-translate-y-1 hover:shadow-2xl text-sm shadow-md" @click="openModal(product)">Ver Detalhes</button>
               </div>
             </div>
-            <div class="product-info">
-              <h2 class="product-title">Impressoras</h2>
-              <div class="product-description">Impressoras a base de solvente e recorte para projetos de alta qualidade.</div>
-              <button class="product-button" onclick="openModal(1)">Ver Detalhes</button>
-            </div>
-          </div>
+          </template>
+        </div>
+      </div>
 
-          <!-- Produto 2: Placas -->
-          <div class="product-item" data-product="2">
-            <div class="carousel" data-slides="4">
-              <div class="carousel-images">
-                <img src="assets/products/placa-img1.webp" alt="Placa 1">
-                <img src="assets/products/placa-img2.webp" alt="Placa 2">
-                <img src="assets/products/placa-img3.webp" alt="Placa 3">
-                <img src="assets/products/placa-img4.webp" alt="Placa 4">
+      <div class="modal fixed inset-0 bg-black/70 z-50 flex items-center justify-center" 
+           x-show="selectedProduct" 
+           @click.outside="selectedProduct = null" 
+           x-data="{ currentSlide: 0 }"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 scale-95"
+           x-transition:enter-end="opacity-100 scale-100"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 scale-100"
+           x-transition:leave-end="opacity-0 scale-95">
+        <div class="modal-content bg-white rounded-3xl p-16 max-w-5xl w-[90%] max-h-[90vh] overflow-y-auto relative" 
+             @click.stop>
+          <button class="modal-close absolute top-6 right-6 bg-black text-white border-none rounded-full w-12 h-12 cursor-pointer transition-opacity duration-200 hover:bg-gray-800 text-xl" 
+                  @click="selectedProduct = null">✕</button>
+          <div class="modal-body flex gap-12 flex-col md:flex-row transition-opacity duration-200" 
+               :class="{ 'opacity-0': !selectedProduct, 'opacity-100': selectedProduct }">
+            <div class="modal-carousel w-full md:w-[450px] h-[450px] overflow-hidden rounded-xl group relative">
+              <div class="carousel-images flex h-full transition-transform duration-500 ease-in-out" :style="'transform: translateX(-' + (currentSlide * 100) + '%);'">
+                <template x-for="(img, index) in selectedProduct?.images" :key="index">
+                  <img :src="img" :alt="selectedProduct?.title" class="flex-shrink-0 w-full h-full object-cover cursor-pointer" @click="openImage(img)">
+                </template>
               </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
+              <div class="carousel-nav absolute inset-0 flex justify-between items-center px-2 opacity-50 group-hover:opacity-100 transition-opacity duration-200">
+                <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide - 1 + selectedProduct?.images.length) % selectedProduct?.images.length">❮</button>
+                <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide + 1) % selectedProduct?.images.length">❯</button>
               </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-                <button class="dot"></button>
-                <button class="dot"></button>
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Placas</h2>
-              <div class="product-description">Placas eletrônicas para manutenção de equipamentos de impressão.</div>
-              <button class="product-button" onclick="openModal(2)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 3: Capstation -->
-          <div class="product-item" data-product="3">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/cap-img1.webp" alt="Capstation">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
+              <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                <template x-for="(img, index) in selectedProduct?.images" :key="index">
+                  <button class="dot bg-white/80 border-none rounded-full w-3 h-3 cursor-pointer transition-all duration-300" :class="{ 'bg-black scale-125': currentSlide === index }" @click="currentSlide = index"></button>
+                </template>
               </div>
             </div>
-            <div class="product-info">
-              <h2 class="product-title">Capstation</h2>
-              <div class="product-description">Temos todos os modelos de capstation dx5, dx7, Xp600, i3200, i1600.</div>
-              <button class="product-button" onclick="openModal(3)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 4: Impressora Kmj 1901 Black -->
-          <div class="product-item" data-product="4">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/imp-img1901.webp" alt="Impressora Kmj 1901 Black">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Impressora KMJ 1901</h2>
-              <div class="product-description">Cabeça de impressão Epson i3200.</div>
-              <button class="product-button" onclick="openModal(4)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 5: Bomba de Tinta -->
-          <div class="product-item" data-product="5">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/bomb-img1.webp" alt="Bomba de Tinta">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Bomba de Tinta</h2>
-              <div class="product-description">Bomba de tinta de 100 e 300ml.</div>
-              <button class="product-button" onclick="openModal(5)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 6: Cartuchos de Tinta Ecosolvente -->
-          <div class="product-item" data-product="6">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/cart-img1.webp" alt="Cartuchos de Tinta">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Cartuchos de Tinta</h2>
-              <div class="product-description">Cartuchos de tinta ecosolvente.</div>
-              <button class="product-button" onclick="openModal(6)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 7: Sensor Encoder -->
-          <div class="product-item" data-product="7">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/enc-img1.webp" alt="Sensor Encoder">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Sensor Encoder</h2>
-              <div class="product-description">Sensor encoder para impressoras.</div>
-              <button class="product-button" onclick="openModal(7)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 8: Estação Limpeza -->
-          <div class="product-item" data-product="8">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/est-img1.webp" alt="Estação Limpeza">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Estação Limpeza</h2>
-              <div class="product-description">Estação de limpeza I3200, Dx5, Xp600.</div>
-              <button class="product-button" onclick="openModal(8)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 9: Filtros -->
-          <div class="product-item" data-product="9">
-            <div class="carousel" data-slides="2">
-              <div class="carousel-images">
-                <img src="assets/products/filt-img1.webp" alt="Filtros 1">
-                <img src="assets/products/filt-img2.webp" alt="Filtros 2">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Filtros</h2>
-              <div class="product-description">Filtros solventes e filtros disco ecosolvente.</div>
-              <button class="product-button" onclick="openModal(9)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 10: Cabeças de Impressão Epson i3200, XP600 e Dx5 -->
-          <div class="product-item" data-product="10">
-            <div class="carousel" data-slides="2">
-              <div class="carousel-images">
-                <img src="assets/products/i3200-img1.webp" alt="Cabeça Epson i3200 1">
-                <img src="assets/products/i3200-img2.webp" alt="Cabeça Epson i3200 2">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Cabeças de Impressão Epson i3200, XP600 e Dx5</h2>
-              <div class="product-description">Cabeças de impressão Epson i3200, XP600 e Dx5.</div>
-              <button class="product-button" onclick="openModal(10)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 11: Fita Encoder -->
-          <div class="product-item" data-product="11">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/fitenc-img1.webp" alt="Fita Encoder">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Fita Encoder</h2>
-              <div class="product-description">Fita encoder 150, 180 e 360.</div>
-              <button class="product-button" onclick="openModal(11)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 12: Cabo Flat -->
-          <div class="product-item" data-product="12">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/flat-img1.webp" alt="Cabo Flat">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Cabo Flat</h2>
-              <div class="product-description">Cabo flat Dx5, Dx7, i3200, i1600, Xp600.</div>
-              <button class="product-button" onclick="openModal(12)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 13: Fiber Laser -->
-          <div class="product-item" data-product="13">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/las-img1.webp" alt="Fiber Laser">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Fiber Laser</h2>
-              <div class="product-description">Máquina de gravação a laser.</div>
-              <button class="product-button" onclick="openModal(13)">Ver Detalhes</button>
-            </div>
-          </div>
-
-          <!-- Produto 14: Fibra Óptica -->
-          <div class="product-item" data-product="14">
-            <div class="carousel" data-slides="1">
-              <div class="carousel-images">
-                <img src="assets/products/opt-img1.webp" alt="Fibra Óptica">
-              </div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots">
-                <button class="dot"></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <h2 class="product-title">Fibra Óptica</h2>
-              <div class="product-description">Fibra óptica para impressoras solvente e ecosolvente.</div>
-              <button class="product-button" onclick="openModal(14)">Ver Detalhes</button>
+            <div class="modal-details flex-1">
+              <h1 x-text="selectedProduct?.title" class="text-4xl font-bold mb-6"></h1>
+              <p x-text="selectedProduct?.description" class="text-gray-600 text-lg mb-8"></p>
+              <a :href="selectedProduct?.whatsapp" class="whatsapp-btn inline-flex items-center gap-3 bg-gradient-to-br from-green-500 to-teal-700 text-white py-4 px-10 font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-xl"><i class="fab fa-whatsapp text-2xl"></i> WhatsApp</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Modal -->
-      <div class="modal" id="product-modal">
-        <div class="modal-content">
-          <button class="modal-close" onclick="closeModal()">✕</button>
-          <div class="modal-body">
-            <div class="modal-carousel">
-              <div class="carousel-images"></div>
-              <div class="carousel-nav">
-                <button class="prev" aria-label="Slide anterior">❮</button>
-                <button class="next" aria-label="Próximo slide">❯</button>
-              </div>
-              <div class="carousel-dots"></div>
-            </div>
-            <div class="modal-details">
-              <h1 id="modal-title"></h1>
-              <p id="modal-description"></p>
-              <a href="#" class="whatsapp-btn" id="modal-whatsapp"><i class="fab fa-whatsapp"></i> Entrar em Contato via WhatsApp</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Overlay para imagem ampliada -->
-      <div class="image-overlay" id="image-overlay">
-        <button class="overlay-close" onclick="closeImageOverlay()">✕</button>
-        <img id="enlarged-image" src="" alt="Imagem ampliada">
+      <div class="image-overlay fixed inset-0 bg-black/70 z-[300] flex items-center justify-center" 
+           x-show="selectedImage" 
+           @click="selectedImage = null"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 scale-95"
+           x-transition:enter-end="opacity-100 scale-100"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 scale-100"
+           x-transition:leave-end="opacity-0 scale-95">
+        <button class="overlay-close absolute top-6 right-6 bg-white text-black border-none rounded-full w-12 h-12 cursor-pointer transition-all duration-300 hover:bg-gray-300 text-xl" @click="selectedImage = null">✕</button>
+        <img :src="selectedImage" alt="Imagem ampliada" class="max-w-[90%] max-h-[90vh] rounded-xl">
       </div>
     </section>
 
-    <section id="contato" style="display: none;">
-      <h1>Entre em Contato</h1>
-      <form id="contact-form">
-        <input class="input-field" type="text" name="nome" placeholder="Seu nome" required>
-        <input class="input-field" type="tel" name="telefone" placeholder="Seu número (ex.: 61 99999-9999)" required>
-        <textarea class="input-field" name="mensagem" placeholder="Sua mensagem" required></textarea>
-        <button type="submit" class="submit-btn">Enviar Mensagem</button>
+    <section id="contato" x-show="activeTab === 'contato'" class="bg-white rounded-3xl shadow-xl max-w-4xl mx-auto mt-20 p-16 text-center">
+      <h1 class="text-5xl font-bold mb-10">Contato</h1>
+      <form @submit.prevent="submitContactForm()" class="space-y-8">
+        <input type="text" placeholder="Nome" required x-model="contact.nome" class="w-full p-5 border border-gray-200 rounded-xl text-xl focus:border-black focus:shadow-lg focus:outline-none transition-all duration-300">
+        <input type="tel" placeholder="Telefone (ex.: 61 99999-9999)" required x-model="contact.telefone" class="w-full p-5 border border-gray-200 rounded-xl text-xl focus:border-black focus:shadow-lg focus:outline-none transition-all duration-300">
+        <textarea placeholder="Mensagem" required x-model="contact.mensagem" class="w-full p-5 border border-gray-200 rounded-xl text-xl focus:border-black focus:shadow-lg focus:outline-none transition-all duration-300 h-40"></textarea>
+        <button type="submit" class="bg-gradient-to-br from-black to-gray-800 text-white py-4 px-12 font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-xl">Enviar</button>
       </form>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <p>© <span id="year"></span> BSB Plotter | Todos os direitos reservados</p>
-      <div class="footer-item phone"><i class="fas fa-phone"></i> +55 (61) 99690-9562</div>
-      <div class="footer-item email"><i class="fas fa-envelope"></i> <a href="mailto:bsbplotter@gmail.com">bsbplotter@gmail.com</a></div>
-      <div class="footer-item facebook"><i class="fab fa-facebook-f"></i> <a href="https://www.facebook.com/BsbPlotter" target="_blank">Facebook</a></div>
-      <div class="footer-item whatsapp"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5561996909562" target="_blank">WhatsApp</a></div>
+  <footer class="bg-gradient-to-br from-white to-gray-100 py-16 px-12 shadow-inner">
+    <div class="footer-content max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <p class="text-lg">© <span x-text="new Date().getFullYear()"></span> BSB Plotter</p>
+      <div class="footer-item flex items-center gap-6"><i class="fas fa-phone text-black text-3xl"></i> <span class="text-lg">+55 (61) 99690-9562</span></div>
+      <div class="footer-item flex items-center gap-6"><i class="fas fa-envelope text-black text-3xl"></i> <a href="mailto:bsbplotter@gmail.com" class="text-black no-underline hover:text-gray-700 transition-colors duration-300 text-lg">bsbplotter@gmail.com</a></div>
+      <div class="footer-item flex items-center gap-6"><i class="fab fa-whatsapp text-black text-3xl"></i> <a href="https://wa.me/5561996909562" target="_blank" class="text-black no-underline hover:text-gray-700 transition-colors duration-300 text-lg">WhatsApp</a></div>
     </div>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
