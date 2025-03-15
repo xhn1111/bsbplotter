@@ -26,11 +26,25 @@
 
   <main class="pt-40 pb-12 px-6">
     <section id="home" x-show="activeTab === 'home'" class="text-center p-16 bg-gradient-to-br from-white to-gray-100 rounded-3xl shadow-xl max-w-4xl mx-auto animate-fadeIn">
-      <h1 class="text-6xl font-bold mb-8">BSBPLOTTER</h1>
-      <p class="text-2xl text-gray-600 mb-10">Manutenção e venda de peças para impressoras a base de solvente e recorte em Brasília. Somos uma empresa especializada na manutenção e venda de peças para impressoras a base de solvente e recorte e computadores.</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Manutenção de Impressoras Solvente e Recorte.</h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-6">Assistência Técnica e Venda de Peças em Brasília e entorno.</p>
+      <p class="text-lg md:text-xl text-gray-600 mb-6">Somos especializados em manutenção e venda de peças para impressoras a base de solvente e recorte. Oferecemos serviços completos de reparo, suporte técnico e instalação, utilizando peças de alta qualidade para garantir a eficiência e durabilidade dos seus equipamentos.</p>
+      <p class="text-lg md:text-xl text-gray-600 mb-6">Atendemos empresas de comunicação visual, gráficas e profissionais que dependem de impressoras solvente e plotters de recorte para suas operações. Com sede em Brasília, também prestamos serviços para cidades da região e outras localidades, sempre com soluções personalizadas e atendimento ágil e profissional.</p>
+      <div class="text-left max-w-md mx-auto mb-8">
+        <p class="text-lg font-semibold text-gray-700 mb-2">Serviços oferecidos:</p>
+        <ul class="list-none text-gray-600 text-base md:text-lg space-y-2">
+          <li><span class="text-black">🔹</span> Manutenção e reparo de impressoras e plotters</li>
+          <li><span class="text-black">🔹</span> Venda de peças</li>
+          <li><span class="text-black">🔹</span> Suporte técnico especializado para ajustes e configurações</li>
+          <li><span class="text-black">🔹</span> Atendimento rápido e eficiente, com opções para outras regiões</li>
+        </ul>
+      </div>
+      <p class="text-lg md:text-xl text-gray-600 mb-8">Entre em contato para mais informações ou solicite um orçamento:</p>
+      <a href="#" @click="activeTab = 'contato'" class="inline-block bg-gradient-to-br from-black to-gray-800 text-white py-4 px-12 font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-xl">Fale Conosco</a>
       <a href="#" @click="activeTab = 'produtos'" class="inline-block bg-gradient-to-br from-black to-gray-800 text-white py-4 px-12 font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-xl">Ver Produtos</a>
     </section>
 
+    <!-- O restante do código (Produtos, Contato, Footer) permanece igual -->
     <section id="produtos" x-show="activeTab === 'produtos'" class="max-w-7xl mx-auto mt-20">
       <div class="p-16 bg-white rounded-3xl shadow-xl">
         <h1 class="text-5xl font-bold mb-12">Produtos</h1>
