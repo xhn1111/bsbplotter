@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="font-poppins bg-gray-50 text-gray-800 leading-relaxed">
   <header x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 50" :class="{ 'scrolled': scrolled }" class="fixed w-full top-0 z-50 bg-gradient-to-br from-white to-gray-100 shadow-md transition-all duration-300 flex flex-col items-center justify-center py-6 px-8" :class="{ 'py-4': scrolled }">
@@ -44,8 +44,8 @@
                   </template>
                 </div>
                 <div class="carousel-nav absolute inset-0 flex justify-between items-center px-2 opacity-50 group-hover:opacity-100 transition-opacity duration-200">
-                  <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide - 1 + product.images.length) % product.images.length">❮</button>
-                  <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide + 1) % product.images.length">❯</button>
+                  <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white hover:scale-110 text-xl" @click="currentSlide = (currentSlide - 1 + product.images.length) % product.images.length">❮</button>
+                  <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white hover:scale-110 text-xl" @click="currentSlide = (currentSlide + 1) % product.images.length">❯</button>
                 </div>
                 <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                   <template x-for="(img, index) in product.images" :key="index">
@@ -75,12 +75,9 @@
            x-transition:leave="transition ease-in duration-200"
            x-transition:leave-start="opacity-100 scale-100"
            x-transition:leave-end="opacity-0 scale-95">
-        <div class="modal-content bg-white rounded-3xl p-16 max-w-5xl w-[90%] max-h-[90vh] overflow-y-auto relative" 
-             @click.stop>
-          <button class="modal-close absolute top-6 right-6 bg-black text-white border-none rounded-full w-12 h-12 cursor-pointer transition-opacity duration-200 hover:bg-gray-800 text-xl" 
-                  @click="selectedProduct = null">✕</button>
-          <div class="modal-body flex gap-12 flex-col md:flex-row transition-opacity duration-200" 
-               :class="{ 'opacity-0': !selectedProduct, 'opacity-100': selectedProduct }">
+        <div class="modal-content bg-white rounded-3xl p-16 max-w-5xl w-[90%] max-h-[90vh] overflow-y-auto">
+          <button class="modal-close absolute top-6 right-6 bg-black text-white border-none rounded-full w-12 h-12 cursor-pointer transition-all duration-300 hover:bg-gray-800 hover:scale-110 text-xl" @click="selectedProduct = null">✕</button>
+          <div class="modal-body flex gap-12 flex-col md:flex-row">
             <div class="modal-carousel w-full md:w-[450px] h-[450px] overflow-hidden rounded-xl group relative">
               <div class="carousel-images flex h-full transition-transform duration-500 ease-in-out" :style="'transform: translateX(-' + (currentSlide * 100) + '%);'">
                 <template x-for="(img, index) in selectedProduct?.images" :key="index">
@@ -88,8 +85,8 @@
                 </template>
               </div>
               <div class="carousel-nav absolute inset-0 flex justify-between items-center px-2 opacity-50 group-hover:opacity-100 transition-opacity duration-200">
-                <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide - 1 + selectedProduct?.images.length) % selectedProduct?.images.length">❮</button>
-                <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white text-xl" @click="currentSlide = (currentSlide + 1) % selectedProduct?.images.length">❯</button>
+                <button class="prev bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white hover:scale-110 text-xl" @click="currentSlide = (currentSlide - 1 + selectedProduct?.images.length) % selectedProduct?.images.length">❮</button>
+                <button class="next bg-white/90 border-none p-2 rounded-full w-10 h-10 cursor-pointer transition-all duration-300 hover:bg-black hover:text-white hover:scale-110 text-xl" @click="currentSlide = (currentSlide + 1) % selectedProduct?.images.length">❯</button>
               </div>
               <div class="carousel-dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 <template x-for="(img, index) in selectedProduct?.images" :key="index">
@@ -108,14 +105,14 @@
 
       <div class="image-overlay fixed inset-0 bg-black/70 z-[300] flex items-center justify-center" 
            x-show="selectedImage" 
-           @click="selectedImage = null"
+           @click.stop="selectedImage = null"
            x-transition:enter="transition ease-out duration-300"
            x-transition:enter-start="opacity-0 scale-95"
            x-transition:enter-end="opacity-100 scale-100"
            x-transition:leave="transition ease-in duration-200"
            x-transition:leave-start="opacity-100 scale-100"
            x-transition:leave-end="opacity-0 scale-95">
-        <button class="overlay-close absolute top-6 right-6 bg-white text-black border-none rounded-full w-12 h-12 cursor-pointer transition-all duration-300 hover:bg-gray-300 text-xl" @click="selectedImage = null">✕</button>
+        <button class="overlay-close absolute top-6 right-6 bg-white text-black border-none rounded-full w-12 h-12 cursor-pointer transition-all duration-300 hover:bg-gray-300 hover:scale-110 text-xl" @click.stop="selectedImage = null">✕</button>
         <img :src="selectedImage" alt="Imagem ampliada" class="max-w-[90%] max-h-[90vh] rounded-xl">
       </div>
     </section>
@@ -140,6 +137,6 @@
     </div>
   </footer>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
