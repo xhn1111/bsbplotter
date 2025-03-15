@@ -2,6 +2,7 @@ const appData = {
   activeTab: 'home',
   selectedProduct: null,
   selectedImage: null,
+  menuOpen: false, // Adicionado para controlar o menu hamburguer
   products: {
     1: { title: "Impressoras", description: "Impressoras a base de solvente e recorte.", images: ["assets/products/imp-img1.webp", "assets/products/imp-img2.webp", "assets/products/imp-img3.webp", "assets/products/imp-img4.webp"], whatsapp: "https://wa.me/5561996909562?text=Quero+saber+mais+sobre+as+Impressoras" },
     2: { title: "Placas", description: "Placas eletrônicas para manutenção.", images: ["assets/products/placa-img1.webp", "assets/products/placa-img2.webp", "assets/products/placa-img3.webp", "assets/products/placa-img4.webp"], whatsapp: "https://wa.me/5561996909562?text=Quero+saber+mais+sobre+as+Placas" },

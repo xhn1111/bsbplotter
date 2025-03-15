@@ -12,7 +12,8 @@
 }
 
 .product-button {
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   height: 40px;
   line-height: 1;
 }
@@ -23,4 +24,81 @@
 
 .carousel-nav button {
   pointer-events: auto;
+}
+
+/* Ajustes para mobile (telas menores que 640px) */
+@media (max-width: 640px) {
+  header {
+    padding: 1rem;
+  }
+
+  #logo img {
+    max-width: 150px;
+  }
+
+  nav ul {
+    gap: 0.5rem;
+  }
+
+  nav ul li a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  main {
+    padding-top: 6rem; /* Menor para caber o header com menu */
+  }
+
+  .product-item {
+    aspect-ratio: auto; /* Remove proporção fixa em mobile */
+  }
+
+  .carousel {
+    height: 200px; /* Altura fixa menor em mobile */
+  }
+
+  .modal-content {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .modal-carousel {
+    height: 200px; /* Altura menor em mobile */
+  }
+
+  .modal-body {
+    gap: 1rem;
+  }
+
+  .whatsapp-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  form input,
+  form textarea {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  form button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  footer .footer-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Garantir proporções em desktop */
+@media (min-width: 641px) {
+  .product-item {
+    aspect-ratio: 1 / 1; /* Quadrado em desktop */
+  }
+
+  .carousel {
+    height: 80%; /* Proporcional em desktop */
+  }
 }
